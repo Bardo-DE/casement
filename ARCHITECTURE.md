@@ -225,7 +225,7 @@ How the protocol layer carries the contract above (wave 2: `pa2-cwl`).
   and lights the output or restores the identity curve). `Windows`: `zwlr_foreign_toplevel_manager` and `ext_workspace_manager`
   (`finished`; a handle or a `commit` of a client without the power changes nothing).
 - **Gated through smithay's hooks (it owns the dispatch).** Four globals are served entirely by smithay, which holds their
-  state; our fork (`PoHsuanLai/smithay`, rev `005eebf1`) asks the compositor before it acts, through a defaulted handler method
+  state; our fork (`Bardo-DE/smithay`, rev `005eebf1`) asks the compositor before it acts, through a defaulted handler method
   that returns `smithay::wayland::Gate { Open, Hold, Refuse }`, and settles what it held with `release(&mut self, display,
   &ClientId, Gate)` on the protocol's state. `consent::gate(state, client, power)` is the one place casement answers: it calls
   `admit` and maps `Go` to `Open`, `Refuse` to `Refuse`, and `Hold` to `Hold` after parking the client's connection in the
@@ -650,7 +650,7 @@ nodes (`--fabricate-gpus N`: `/sys/dev/char/226:(128+n)`, A3) for the multi-GPU 
 - `missing_docs` warns at the workspace, so every public item says what it means.
 - Sibling repos are path dependencies (`../quire`, `../porter`, `../casement-protocols`); a lane
   worktree links them beside itself.
-- smithay is pinned by rev to our fork `PoHsuanLai/smithay` branch `casement` (upstream
+- smithay is pinned by rev to our fork `Bardo-DE/smithay` branch `casement` (upstream
   `118e34ff` plus the patches FINDINGS lists, A14) with no default features; each crate names the
   features it uses and the `casement` binary carries A14's union. Nothing goes upstream to
   smithay (DECISIONS, A13); patches live only in the fork.

@@ -632,7 +632,7 @@ dependencies = [
 [[package]]
 name = "chordkit"
 version = "0.1.0"
-source = "git+https://github.com/PoHsuanLai/chordkit.git?rev=99eec9ddd03ee345b669fcc7954ed44590724290#99eec9ddd03ee345b669fcc7954ed44590724290"
+source = "git+https://github.com/Bardo-DE/chordkit.git?rev=99eec9ddd03ee345b669fcc7954ed44590724290#99eec9ddd03ee345b669fcc7954ed44590724290"
 dependencies = [
  "thiserror 2.0.21",
 ]
@@ -640,7 +640,7 @@ dependencies = [
 [[package]]
 name = "chordkit-file"
 version = "0.1.0"
-source = "git+https://github.com/PoHsuanLai/chordkit.git?rev=99eec9ddd03ee345b669fcc7954ed44590724290#99eec9ddd03ee345b669fcc7954ed44590724290"
+source = "git+https://github.com/Bardo-DE/chordkit.git?rev=99eec9ddd03ee345b669fcc7954ed44590724290#99eec9ddd03ee345b669fcc7954ed44590724290"
 dependencies = [
  "libc",
  "thiserror 2.0.21",
@@ -1294,7 +1294,7 @@ checksum = "37bfe73dc8ec21f54d181e5a60554327ec3f1c600c455a75ccbfc65d2106a6c4"
 [[package]]
 name = "glifo"
 version = "0.2.0"
-source = "git+https://github.com/PoHsuanLai/vello?rev=3e43d4af1f1955f2efc2cd52e50350811a1386ca#3e43d4af1f1955f2efc2cd52e50350811a1386ca"
+source = "git+https://github.com/Bardo-DE/vello?rev=3e43d4af1f1955f2efc2cd52e50350811a1386ca#3e43d4af1f1955f2efc2cd52e50350811a1386ca"
 dependencies = [
  "bytemuck",
  "foldhash",
@@ -1721,19 +1721,19 @@ dependencies = [
 [[package]]
 name = "keycap-client"
 version = "0.1.0"
-source = "git+https://github.com/PoHsuanLai/keycap?rev=bc3d41754fa716f4183c901915f95b70a5c4d0b8#bc3d41754fa716f4183c901915f95b70a5c4d0b8"
+source = "git+https://github.com/Bardo-DE/keycap?rev=c5897ab064c080415002ad32dfc80c7eea981d12#c5897ab064c080415002ad32dfc80c7eea981d12"
 dependencies = [
  "chordkit",
  "chordkit-file",
  "keycap-protocol",
  "rustix 1.1.5",
- "shell-verbs 0.1.0 (git+https://github.com/PoHsuanLai/casement-protocols?rev=fa664f1fcb312abd7e7a0e38ccae216406e88139)",
+ "shell-verbs 0.1.0 (git+https://github.com/Bardo-DE/casement-protocols?rev=fa664f1fcb312abd7e7a0e38ccae216406e88139)",
 ]
 
 [[package]]
 name = "keycap-protocol"
 version = "0.1.0"
-source = "git+https://github.com/PoHsuanLai/keycap?rev=bc3d41754fa716f4183c901915f95b70a5c4d0b8#bc3d41754fa716f4183c901915f95b70a5c4d0b8"
+source = "git+https://github.com/Bardo-DE/keycap?rev=c5897ab064c080415002ad32dfc80c7eea981d12#c5897ab064c080415002ad32dfc80c7eea981d12"
 dependencies = [
  "serde",
  "serde_json",
@@ -2218,7 +2218,7 @@ checksum = "57c0d7b74b563b49d38dae00a0c37d4d6de9b432382b2892f0574ddcae73fd0a"
 [[package]]
 name = "peephole"
 version = "0.1.11"
-source = "git+https://github.com/PoHsuanLai/peephole?tag=v0.1.11#06a97c105d833b07a37feb48a16dde49ef4d8bc0"
+source = "git+https://github.com/Bardo-DE/peephole?tag=v0.1.11#06a97c105d833b07a37feb48a16dde49ef4d8bc0"
 dependencies = [
  "nix 0.31.3",
  "peephole-core",
@@ -2229,7 +2229,7 @@ dependencies = [
 [[package]]
 name = "peephole-bus"
 version = "0.1.11"
-source = "git+https://github.com/PoHsuanLai/peephole?tag=v0.1.11#06a97c105d833b07a37feb48a16dde49ef4d8bc0"
+source = "git+https://github.com/Bardo-DE/peephole?tag=v0.1.11#06a97c105d833b07a37feb48a16dde49ef4d8bc0"
 dependencies = [
  "futures-timer",
  "peephole",
@@ -2242,7 +2242,7 @@ dependencies = [
 [[package]]
 name = "peephole-core"
 version = "0.1.11"
-source = "git+https://github.com/PoHsuanLai/peephole?tag=v0.1.11#06a97c105d833b07a37feb48a16dde49ef4d8bc0"
+source = "git+https://github.com/Bardo-DE/peephole?tag=v0.1.11#06a97c105d833b07a37feb48a16dde49ef4d8bc0"
 dependencies = [
  "serde",
  "thiserror 2.0.21",
@@ -2422,7 +2422,6 @@ dependencies = [
  "porter-core",
  "porter-dbus-macros",
  "porter-ids",
- "porter-match",
  "porter-tailscale",
  "porter-wire",
  "serde",
@@ -2933,7 +2932,7 @@ version = "0.1.0"
 [[package]]
 name = "shell-verbs"
 version = "0.1.0"
-source = "git+https://github.com/PoHsuanLai/casement-protocols?rev=fa664f1fcb312abd7e7a0e38ccae216406e88139#fa664f1fcb312abd7e7a0e38ccae216406e88139"
+source = "git+https://github.com/Bardo-DE/casement-protocols?rev=fa664f1fcb312abd7e7a0e38ccae216406e88139#fa664f1fcb312abd7e7a0e38ccae216406e88139"
 
 [[package]]
 name = "shlex"
@@ -3022,7 +3021,7 @@ checksum = "f9395f0f0eee849a9b707b2f06bb92a6a422090e2123bb2ef8e87a0e61892a8e"
 [[package]]
 name = "smithay"
 version = "0.7.0"
-source = "git+https://github.com/PoHsuanLai/smithay?rev=cf88ef5174c8bd763c8692cf6ec1d3080713b912#cf88ef5174c8bd763c8692cf6ec1d3080713b912"
+source = "git+https://github.com/Bardo-DE/smithay?rev=cf88ef5174c8bd763c8692cf6ec1d3080713b912#cf88ef5174c8bd763c8692cf6ec1d3080713b912"
 dependencies = [
  "aliasable",
  "appendlist",
@@ -3492,7 +3491,7 @@ dependencies = [
 [[package]]
 name = "vello_common"
 version = "0.1.0"
-source = "git+https://github.com/PoHsuanLai/vello?rev=3e43d4af1f1955f2efc2cd52e50350811a1386ca#3e43d4af1f1955f2efc2cd52e50350811a1386ca"
+source = "git+https://github.com/Bardo-DE/vello?rev=3e43d4af1f1955f2efc2cd52e50350811a1386ca#3e43d4af1f1955f2efc2cd52e50350811a1386ca"
 dependencies = [
  "bytemuck",
  "fearless_simd",
@@ -3507,7 +3506,7 @@ dependencies = [
 [[package]]
 name = "vello_cpu"
 version = "0.1.0"
-source = "git+https://github.com/PoHsuanLai/vello?rev=3e43d4af1f1955f2efc2cd52e50350811a1386ca#3e43d4af1f1955f2efc2cd52e50350811a1386ca"
+source = "git+https://github.com/Bardo-DE/vello?rev=3e43d4af1f1955f2efc2cd52e50350811a1386ca#3e43d4af1f1955f2efc2cd52e50350811a1386ca"
 dependencies = [
  "bytemuck",
  "glifo",

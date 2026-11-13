@@ -10,7 +10,7 @@ need() { echo "preflight: $1" >&2; echo "preflight: fix: $2" >&2; exit 3; }
 
 jail="${CASEMENT_JAIL:-../desktop/harness/jail.sh}"
 [ -x "$jail" ] || need "the jail script $jail is missing or not executable" \
-  "check out ~/desktop beside casement (git clone https://github.com/PoHsuanLai/desktop ../desktop) or set CASEMENT_JAIL"
+  "check out ~/desktop beside casement (git clone https://github.com/Bardo-DE/desktop ../desktop) or set CASEMENT_JAIL"
 command -v bwrap >/dev/null || need "bubblewrap (bwrap) is not on PATH" "$(pkg_hint bubblewrap)"
 [ -e /dev/udmabuf ] || need "/dev/udmabuf is missing" "log in locally (Q-T1), or: sudo modprobe udmabuf"
 [ -r /dev/udmabuf ] || need "/dev/udmabuf is not readable" "log in locally (Q-T1): the uaccess ACL comes with a local seat session"

@@ -28,7 +28,7 @@ edition = "2024"
 license = "MIT OR Apache-2.0"
 # What quire declares; the toolchain itself is pinned in rust-toolchain.toml (1.98.1).
 rust-version = "1.92"
-repository = "https://github.com/PoHsuanLai/casement"
+repository = "https://github.com/Bardo-DE/casement"
 publish = false
 
 [workspace.dependencies]
@@ -69,14 +69,14 @@ ds-helpers = { path = "../quire/crates/ds-helpers", default-features = false }
 # The desktop's keymap (chordkit's layers) and keycap's program end, `KeycapSource`: casement
 # reads its shell bindings from them (`casement::keymap`). The revs are the ones sill, quire and
 # cua pin.
-chordkit      = { git = "https://github.com/PoHsuanLai/chordkit.git", rev = "99eec9ddd03ee345b669fcc7954ed44590724290" }
-keycap-client = { git = "https://github.com/PoHsuanLai/keycap", rev = "bc3d41754fa716f4183c901915f95b70a5c4d0b8" }
+chordkit      = { git = "https://github.com/Bardo-DE/chordkit.git", rev = "99eec9ddd03ee345b669fcc7954ed44590724290" }
+keycap-client = { git = "https://github.com/Bardo-DE/keycap", rev = "c5897ab064c080415002ad32dfc80c7eea981d12" }
 # Which program is calling (caller identity): the bus adapter (casement-ipc checks every
 # `org.quire.Compositor1` call with it, on casement's tokio runtime) and the pure vocabulary
 # (casement-agent names the roles). The desktop's role names; the `fake` seams are a dev
 # dependency of casement-ipc only (the desktop gate greps `cargo tree -e features` for them).
-peephole-bus  = { git = "https://github.com/PoHsuanLai/peephole", tag = "v0.1.11", default-features = false, features = ["desktop", "tokio"] }
-peephole-core = { git = "https://github.com/PoHsuanLai/peephole", tag = "v0.1.11", features = ["desktop"] }
+peephole-bus  = { git = "https://github.com/Bardo-DE/peephole", tag = "v0.1.11", default-features = false, features = ["desktop", "tokio"] }
+peephole-core = { git = "https://github.com/Bardo-DE/peephole", tag = "v0.1.11", features = ["desktop"] }
 # The stored settings document (C45, B13): casement and casement-ipc only.
 # `quire-desktop`: the settings portal, so `theme = "system"` follows the desktop (wave-2026-10-15/chrome2 ask).
 ds-settings = { path = "../quire/crates/ds-settings", default-features = false, features = ["quire-desktop"] }
@@ -116,14 +116,14 @@ pipewire = "0.10"
 # fontique's system fonts, vello_cpu rasterises it. The versions are quire's (parley from its pinned
 # block, vello_cpu at the fork rev quire's Cargo.toml patches in), so one copy of each is built.
 parley    = { version = "0.11.1", default-features = false, features = ["std", "system"] }
-vello_cpu = { git = "https://github.com/PoHsuanLai/vello", rev = "3e43d4af1f1955f2efc2cd52e50350811a1386ca" }
+vello_cpu = { git = "https://github.com/Bardo-DE/vello", rev = "3e43d4af1f1955f2efc2cd52e50350811a1386ca" }
 
 # ---- Not in quire's pinned block (FINDINGS: dependencies added here). taffy is the rev quire's
 # Cargo.lock resolves through Blitz (SP1, A14), named directly because casement-layout takes
 # taffy alone; only `casement-layout/src/taffy_bridge/` names it (boundary row B2).
 taffy = { git = "https://github.com/DioxusLabs/taffy", rev = "4863877b9cab21645b160d7f247901f90214fe27", default-features = false, features = ["std", "taffy_tree", "flexbox", "grid", "block_layout"] }
 
-# smithay (C2, A14): our fork `PoHsuanLai/smithay`, which starts at upstream rev 118e34ff (master
+# smithay (C2, A14): our fork `Bardo-DE/smithay`, which starts at upstream rev 118e34ff (master
 # 2026-09-30, SP1). The pin is a commit of the fork's branch `casement-textinput`, which carries these
 # patches (QUIRKS and FINDINGS name each): the xdg_surface role-object errors, wl_region's negative
 # sizes, text-input `enter` and `leave` with keyboard focus without an input method, activation of an
@@ -144,7 +144,7 @@ taffy = { git = "https://github.com/DioxusLabs/taffy", rev = "4863877b9cab21645b
 # backend_winit backend_egl backend_drm backend_gbm backend_libinput backend_udev
 # backend_session_libseat backend_libei backend_vulkan use_system_lib; renderer_test only
 # under the `testing` feature; xwayland off until the Q-C5 gate.
-smithay = { git = "https://github.com/PoHsuanLai/smithay", rev = "cf88ef5174c8bd763c8692cf6ec1d3080713b912", default-features = false }
+smithay = { git = "https://github.com/Bardo-DE/smithay", rev = "cf88ef5174c8bd763c8692cf6ec1d3080713b912", default-features = false }
 # The client side of the test kit: the protocol extensions smithay serves from these crates.
 wayland-protocols-wlr = { version = "0.3.12", features = ["client"] }
 wayland-protocols-misc = { version = "0.3.12", features = ["client"] }
@@ -159,7 +159,7 @@ tracing-subscriber = { version = "0.3", default-features = false, features = ["f
 # Arithmetic that overflows is a bug, not a wrapped number, in the shipped compositor (CASC-19).
 # keycap-client pins shell-verbs by git; casement reads the sibling checkout, so the git copy is
 # patched to it and one ShellVerb type is built (the keymap test compares the two tables).
-[patch."https://github.com/PoHsuanLai/casement-protocols"]
+[patch."https://github.com/Bardo-DE/casement-protocols"]
 shell-verbs = { path = "../casement-protocols/shell-verbs" }
 
 [profile.release]

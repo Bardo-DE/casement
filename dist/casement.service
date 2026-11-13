@@ -44,7 +44,7 @@
 
 [Unit]
 Description=casement, the desktop compositor
-Documentation=https://github.com/PoHsuanLai/casement
+Documentation=https://github.com/Bardo-DE/casement
 PartOf=graphical-session.target
 After=graphical-session-pre.target
 Before=graphical-session.target

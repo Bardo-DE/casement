@@ -132,7 +132,7 @@ module); `Rgba8`; `TextureBook`; `Transcript`, `Pattern`; `FixtureSpec`, `TestOr
 | ds-style without dioxus still pulls `image` (png, jpeg, moxcms) into casement-core's graph (A22, SP8) | quire makes `image` an optional ds-style feature |
 | ds-behaviour: the switcher and hot-corner machines have no caller yet (the Space-swipe machine runs since lane cas21-gesture, `model/swipe.rs`, fed through `Mono::stamp`) | the switcher and hot-corner machines run in casement (C41, P3-Z), with their `*Params` in `CasementSettings` |
 | `CasementSettings::defaults` carries no bindings (C30 says the settings document holds the defaults) | the shell's chords are not defaults of the settings document: c17 reads them from the desktop keymap (`casement::keymap`, see the c17 rows below); `settings/bindings.rs` stays empty and a `[bindings]` entry is only an addition or a win over the keymap for one chord |
-| The smithay fork `PoHsuanLai/smithay` (branch `casement`, C2) exists (P0-fork) and the pin names its commit; it carries two patches, listed below | a further patch is one more commit on the fork and a new rev in the root Cargo.toml and `wlcs-casement/Cargo.toml` |
+| The smithay fork `Bardo-DE/smithay` (branch `casement`, C2) exists (P0-fork) and the pin names its commit; it carries two patches, listed below | a further patch is one more commit on the fork and a new rev in the root Cargo.toml and `wlcs-casement/Cargo.toml` |
 | Workspace pins outside quire's pinned block: smithay, wayland-protocols-wlr, wayland-protocols-misc, xkbcommon 0.9 (quire's block says 0.8 through sctk 0.20, A14), libseat, tracing, tracing-subscriber | quire's `docs/workspace-deps.toml` carries them (with the xkbcommon note) and this workspace copies the block verbatim |
 | `reis` and `pipewire` are pinned (A14) and named by no crate | P2-Z (capture source) and P4-Z (EIS) name them |
 | wlcs attaches buffers before acking the first configure; smithay refuses (about 260 failures, A6) | the orchestrator decides: a wlcs-only relaxation under a debug feature, or a newer wlcs pin |
@@ -421,7 +421,7 @@ byte-exact for tier P and 2 per channel on at most 1000 ppm of pixels for tier L
 
 ### P0-fork: the smithay fork
 
-`PoHsuanLai/smithay` branch `casement` starts at upstream `118e34ff` (the rev casement had pinned) and carries
+`Bardo-DE/smithay` branch `casement` starts at upstream `118e34ff` (the rev casement had pinned) and carries
 two commits, one per patch, each local to its bug; patches live only there and nothing goes upstream (A13).
 
 - `87c4f4df` xdg_shell: destroying an `xdg_surface` before its role object posts `xdg_surface.defunct_role_object`
@@ -655,7 +655,7 @@ W13 8 to 0.
   the decoration configure and orphaned tests (wlcs-side), set_selection from an unfocused source
   (smithay policy), text-input `enter` without an input method (smithay's rule, and wlcs' unflushed
   `get_input_method`), and the touch at y = -5 (a placement rule).
-- Interface asks for the smithay fork (`PoHsuanLai/smithay`, branch `casement`): set_anchor_rect to accept
+- Interface asks for the smithay fork (`Bardo-DE/smithay`, branch `casement`): set_anchor_rect to accept
   a zero size; `fractional_scale_exists` and `viewport_exists` raised on the manager object; the
   viewporter pre-commit hook added when `ViewporterSurfaceState` exists but is `None`; `out_of_buffer`
   checked when only `set_source` changes; `PopupPointerGrab::unset` not to unset a keyboard grab that a
