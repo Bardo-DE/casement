@@ -37,6 +37,7 @@ mod pointer_constraints;
 mod pointer_gestures;
 mod popup_grab;
 mod popup_input;
+mod popup_reuse;
 mod presentation;
 mod primary_selection;
 mod quire_desktop;

@@ -137,14 +137,15 @@ taffy = { git = "https://github.com/DioxusLabs/taffy", rev = "4863877b9cab21645b
 # (wave 2 lane fork), are carried in the fork's master, which this rev pins: `get_xdg_surface` raising `role` and
 # `invalid_surface_state`, `xdg_toplevel.wm_capabilities` at toplevel creation, and subsurface positions
 # as state of the parent with a sync subtree applying only what it committed. `wl_surface.damage` with a
-# negative size is ignored like `damage_buffer`, and `xdg_positioner.set_parent_size` with one too (fuzz seed 4 found both). Each patch is its own commit.
+# negative size is ignored like `damage_buffer`, and `xdg_positioner.set_parent_size` with one too (fuzz seed 4 found both). `get_xdg_surface` takes a
+# wl_surface that was an xdg_toplevel or xdg_popup before (GTK 4 reshows a popover on the same surface; Ghostty was disconnected). Each patch is its own commit.
 # Patches live only in the fork and nothing goes upstream (A13). No features here: each crate names the
 # ones it uses, so the boundary rows see each crate's own graph. The union (the `casement`
 # binary) is A14's list: wayland_frontend desktop renderer_gl renderer_pixman renderer_multi
 # backend_winit backend_egl backend_drm backend_gbm backend_libinput backend_udev
 # backend_session_libseat backend_libei backend_vulkan use_system_lib; renderer_test only
 # under the `testing` feature; xwayland off until the Q-C5 gate.
-smithay = { git = "https://github.com/Bardo-DE/smithay", rev = "cf88ef5174c8bd763c8692cf6ec1d3080713b912", default-features = false }
+smithay = { git = "https://github.com/Bardo-DE/smithay", rev = "919d8dcf7fe0b9ad03f3de53bc178dad30823631", default-features = false }
 # The client side of the test kit: the protocol extensions smithay serves from these crates.
 wayland-protocols-wlr = { version = "0.3.12", features = ["client"] }
 wayland-protocols-misc = { version = "0.3.12", features = ["client"] }

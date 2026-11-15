@@ -3084,7 +3084,7 @@ checksum = "f9395f0f0eee849a9b707b2f06bb92a6a422090e2123bb2ef8e87a0e61892a8e"
 [[package]]
 name = "smithay"
 version = "0.7.0"
-source = "git+https://github.com/Bardo-DE/smithay?rev=cf88ef5174c8bd763c8692cf6ec1d3080713b912#cf88ef5174c8bd763c8692cf6ec1d3080713b912"
+source = "git+https://github.com/Bardo-DE/smithay?rev=919d8dcf7fe0b9ad03f3de53bc178dad30823631#919d8dcf7fe0b9ad03f3de53bc178dad30823631"
 dependencies = [
  "aliasable",
  "appendlist",
