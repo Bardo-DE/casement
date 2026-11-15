@@ -1,6 +1,6 @@
 # Third-party code
 
-Code ported or shaped after another project, per the clean-room rule (CONVENTIONS addendum 1):
+Code ported or shaped after another project, per the clean-room rule:
 only smithay and its MIT examples (`anvil`, `smallvil`, `wlcs_anvil`) may be read as code.
 
 | Path | After | Licence | What was taken |

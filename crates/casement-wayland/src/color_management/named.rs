@@ -1,4 +1,4 @@
-//! The wire's names and numbers as our types, and back (the edge converts: CONVENTIONS 3).
+//! The wire's names and numbers as our types, and back (the edge converts).
 
 use casement_core::output::{
     Chromaticity, D65, DISPLAY_P3, Primaries, SRGB, TransferCurve,

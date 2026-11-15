@@ -303,7 +303,7 @@ fn raw_image(
     }
 }
 
-/// Our name for one of smithay's transforms (the edge converts, CONVENTIONS 3).
+/// Our name for one of smithay's transforms (the edge converts).
 fn core_transform(transform: Transform) -> CoreTransform {
     match transform {
         Transform::Normal => CoreTransform::Normal,

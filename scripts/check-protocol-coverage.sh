@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# New global, new test file (CONVENTIONS addendum 11): every protocol module
+# New global, new test file: every protocol module
 # crates/casement-wayland/src/<p>.rs has crates/casement-testkit/tests/it/protocol/<p>.rs and a
 # `mod <p>;` line in that directory's mod.rs; every module named in
 # crates/casement-testkit/tests/golden/globals.txt (`<interface> <version> <module>` per line)

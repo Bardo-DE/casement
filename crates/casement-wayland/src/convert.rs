@@ -1,5 +1,4 @@
-//! The edge: smithay's types become ours here and in the handlers, never deeper (CONVENTIONS
-//! addendum 3).
+//! The edge: smithay's types become ours here and in the handlers, never deeper.
 
 use casement_core::InputSerial;
 use casement_core::geometry::{LogicalPoint, LogicalRect, LogicalSize};

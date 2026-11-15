@@ -1,6 +1,6 @@
 //! The seat's edge: our input units become smithay's. Floats appear only here, because
-//! smithay's input handles take `f64` points and the wire carries `wl_fixed` (CONVENTIONS
-//! addendum 8: stored values stay integers).
+//! smithay's input handles take `f64` points and the wire carries `wl_fixed`
+//! (stored values stay integers).
 
 use casement_core::geometry::{LogicalPoint, SubPoint, SubPx};
 use casement_core::input::{AxisFrame, AxisSource, ButtonCode, KeyCode};

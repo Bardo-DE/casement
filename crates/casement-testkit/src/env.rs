@@ -1,6 +1,5 @@
-//! The golden environment: whether goldens are blessed (`CASEMENT_BLESS=1`, deliberate,
-//! CONVENTIONS addendum 12) and where differing frames are written. The only reader of
-//! `CASEMENT_BLESS`.
+//! The golden environment: whether goldens are blessed (`CASEMENT_BLESS=1`, deliberate) and where
+//! differing frames are written. The only reader of `CASEMENT_BLESS`.
 
 use std::path::PathBuf;
 

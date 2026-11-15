@@ -4,7 +4,7 @@
 //! the only clock readers ([`time`]), the stored settings document ([`config`]) and the
 //! command line ([`cli`]).
 //!
-//! The handler recipe (CONVENTIONS addendum 4): a smithay callback in `handlers/<p>.rs`
+//! The handler recipe: a smithay callback in `handlers/<p>.rs`
 //! converts its arguments and calls `casement_wayland::<p>::on_<request>` → `Vec<Event>` →
 //! [`core_loop::feed`] → `Model::step` → `Vec<Effect>` → [`exec::exec`] →
 //! `casement_wayland::<p>::apply_<effect>`, the backend or the renderer.

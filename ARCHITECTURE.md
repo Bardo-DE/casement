@@ -604,8 +604,7 @@ properties (T0), integration tests under each crate's `tests/it/` (one binary pe
 guard test that fails when a file is not included) with shared builders in `tests/it/support/`.
 `fuzz/` and `relax.rs` in the test kit stay their own binaries (cost). The ack policy is no longer process-global: it is `State::ack_policy` (`testing` only), set from `FixtureSpec::with_ack_policy`.
 
-Everything else drives the real `State` through `casement_testkit::Fixture` (CONVENTIONS
-addendum 10): the headless backend, a `Display` whose poll fd sits in calloop as a duplicate
+Everything else drives the real `State` through `casement_testkit::Fixture`: the headless backend, a `Display` whose poll fd sits in calloop as a duplicate
 (no `unsafe`, SP3), clients on non-blocking socket pairs (`casement_testclient::TestClient`),
 the virtual clock as a calloop event source (A1). `pump` runs until a round moves nothing;
 `advance` stops at every timer and vblank on the way, so how an advance is chopped never shows;

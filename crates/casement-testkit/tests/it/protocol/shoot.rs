@@ -79,7 +79,7 @@ pub(crate) fn shot_of(fixture: &mut Fixture, window: WindowId) -> image::RgbaIma
 }
 
 /// Compares `actual` with `tests/golden/scenes/<name>.png` byte for byte (pixman, tier P);
-/// `CASEMENT_BLESS=1` writes it (CONVENTIONS addendum 12).
+/// `CASEMENT_BLESS=1` writes it.
 pub(crate) fn check_pixels(name: &str, actual: &image::RgbaImage) {
     let env = Env::of_process();
     let golden = Golden {

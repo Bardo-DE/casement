@@ -1,6 +1,6 @@
 //! The one place effects happen: each `Effect` reaches the protocol module, the backend, the
 //! renderer or the clock that carries it out. A failure is logged and degrades; it never
-//! panics the loop (CONVENTIONS addendum 2).
+//! panics the loop.
 //!
 //! A batch's `Relayout`s collapse into one arrangement, made after the rest of the batch; the
 //! desktop's notes (`quire_desktop_v1`) follow it, since they carry the arrangement's rectangles.

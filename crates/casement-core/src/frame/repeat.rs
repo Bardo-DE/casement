@@ -2,7 +2,7 @@
 //! are counted, and the window's end reports how many were held back. A frame that fails at
 //! every vblank (60 or more a second) would otherwise fill the disk.
 //!
-//! Time is an argument (CONVENTIONS addendum 6): the caller passes the session clock's `now`.
+//! Time is an argument: the caller passes the session clock's `now`.
 //!
 //! ```
 //! use casement_core::frame::{Repeat, RepeatGate};

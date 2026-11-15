@@ -1,4 +1,4 @@
-//! Every stored or wire type survives its serde form (CONVENTIONS §12), with the forms pinned.
+//! Every stored or wire type survives its serde form, with the forms pinned.
 
 use crate::support;
 

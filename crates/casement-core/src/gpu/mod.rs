@@ -5,7 +5,7 @@
 //! ([`GpuChoice`]) into a [`RenderPlan`] (which GPU renders, which scans each output out);
 //! [`feedback_for`] turns the plan and each node's formats into the dma-buf feedback a client
 //! is offered. Nothing here opens a device or reads `/sys`: hardware values come from
-//! detection plus an override, never this machine (CONVENTIONS addendum 9).
+//! detection plus an override, never this machine.
 //!
 //! ```
 //! use casement_core::gpu::{GpuChoice, plan_for};

@@ -29,7 +29,7 @@ fn fault(fixture: &mut Fixture, id: ClientId) -> (String, u32) {
 
 /// Compares what `client` received, without the events of the objects of `skip` and without
 /// instants, with `tests/golden/transcripts/<name>`; `CASEMENT_BLESS=1` replaces a differing
-/// golden (CONVENTIONS addendum 12).
+/// golden.
 fn check(name: &str, client: &TestClient, skip: &[&str]) {
     let actual: String = client
         .transcript()

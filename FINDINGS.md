@@ -325,7 +325,7 @@ byte-exact for tier P and 2 per channel on at most 1000 ppm of pixels for tier L
 - **The first-sight scale is sill's PreferWhole rule** (`sill-model` `displays/scale.rs`): 109
   points per inch, whole scale from an ideal of 1.5 while at least 1280 points wide, capped at
   2x; quarter steps otherwise.
-- **`cargo fmt --all` reaches sibling workspaces** through path dependencies (CONVENTIONS 15);
+- **`cargo fmt --all` reaches sibling workspaces** through path dependencies;
   `--check` needs `../stoker` beside porter.
 - **Motion goldens rest on the platform's `f64::exp`** (A25); quantising to `SubPx` keeps the
   chance of a one-ulp flip moving a value tiny, not zero.
@@ -726,8 +726,8 @@ W13 8 to 0.
 - F6: the cursor rasters and the lock cover's id live in `TextureBook` (`draw_cache.rs`); the A37 ack policy is
   `State::ack_policy` set from `FixtureSpec::with_ack_policy`, so `relax.rs` has no static.
 - F8: `Pull` (grab resize sides), `TreeKind` (presence), `Visibility` (layout) and `fate_of(Option<_>)` replace the
-  listed bools. `convert::toggle_of(bool)` stays: it is the one place a smithay `bool` becomes `Toggle`
-  (CONVENTIONS 3), and `DndGrabHandler::dropped(_validated: bool)` is smithay's own signature.
+  listed bools. `convert::toggle_of(bool)` stays: it is the one place a smithay `bool` becomes `Toggle`,
+  and `DndGrabHandler::dropped(_validated: bool)` is smithay's own signature.
 - F12, F13: crate docs with a doc test on core, layout, motion, render, backend and wayland; the `casement` lib doc
   says how to embed the compositor.
 - Raster `expect`s: they sat in `raster.rs`'s `#[cfg(test)]` module, not on a library path; they are checked
@@ -1784,8 +1784,8 @@ Lane P2-T3, casement half (not compiled; the orchestrator gates). No `todo!()` w
 - **Tests.** Pure: the translation functions, the device bits, the origin tag, release on end, `open` in `eis.rs`. Private
   bus: `connect_eis_reaches_the_loop_as_a_remote_ask_with_the_callers_unit`. Fixture: `tests/it/remote_eis.rs` (the unit check
   through `Fixture::connect_remote_eis`; remote keys of a bound chord fire nothing, through `Fixture::deliver_remote`).
-  Not tested: a real EIS client talking to the source (no crate outside `casement-agent` may name `reis`, B14); the `transom`
-  acceptance script `dev/accept/remote-desktop.sh` does that against a real compositor.
+  Not tested: a real EIS client talking to the source (no crate outside `casement-agent` may name `reis`, B14); the transom
+  acceptance script remote-desktop.sh (in the transom repo, dev/accept) does that against a real compositor.
 - **Spots most likely not to compile.** `eis.rs`: `inner.process_events(...)` closure types against reis' `EisRequestSource`,
   `smithay::reexports::calloop::Result`, `caps.into_iter().collect()` into `BitFlags`, the `before_done_cb` closure typed as
   `for<'a> FnOnce(&'a Device)`, `eis::handshake::ContextType` comparison, the `KeyState`/`ButtonState` paths and a
@@ -4057,12 +4057,12 @@ test-client helper pin the wire behaviour transom relies on.
   `kill_client`/`post_error` in `casement-wayland/src/image_capture*` and `handlers/image_capture*` finds none; smithay's only
   error there is `DuplicateFrame` (a `create_frame` while the previous frame is not destroyed), which transom's order
   (`frame.destroy()` before `create_frame`) never triggers, and which would show as `wl_display.error` in `WAYLAND_DEBUG`.
-- **Where the EPIPE comes from.** transom's `Share::drop` (`crates/transom/src/screencast/run.rs`) calls
+- **Where the EPIPE comes from.** transom's `Share::drop` (screencast/run.rs in the transom repo) calls
   `Canceller::cancel` (`capture/mod.rs`), which does `shutdown(Both)` on a duplicate of its own Wayland socket to unblock
   `Copier::frame`, then the next write on that connection fails with "Io error: Broken pipe". The timestamps prove it: in
   `transom-wldebug.log` the second `capture()` is at 1422158.8 ms and the next line, `session.destroy()` from `Copier::drop`, at
   1442123.6 ms, 19.96 s later. A connection the compositor had closed would have ended the pump thread (and dropped the
-  `Copier`) at once. The 20 s is `timeout 20` in `dev/lib/cast_check.sh::frames_of` plus `stop_cast`, after which the next cast
+  `Copier`) at once. The 20 s is `timeout 20` in `frames_of` in the transom repo's dev/lib/cast_check.sh plus `stop_cast`, after which the next cast
   starts (the "later connection", 61 ms after the drop). That second connection's `capture()` is followed by the same
   `Share::drop` 48 ms later (end of the script, `down.sh`), before casement's 85 ms answer could come: its log stops at
   `capture()` for that reason, not because casement hung. `casement-wldebug.log` shows casement accepting the connection and
@@ -5458,7 +5458,7 @@ pointer resting at the top edge brings the surface with the role `bar` over the 
 
 ## wh-tcas (2026-10-28): type rules, plain Rust first
 
-- CONVENTIONS 3 and 17 now follow the shared rule 4: bool is fine for fields, returns, locals and private fns; mirror enums,
+- Type rules, plain Rust first: bool is fine for fields, returns, locals and private fns; mirror enums,
   two-arm Option/Result lookalikes and one-variant enums are removed. Done per audit findings C-1..C-20 (not C-17's Maker,
   not C-21, C-22); see the commit message and `~/rs-wt/enum-audit/casement.md`.
 

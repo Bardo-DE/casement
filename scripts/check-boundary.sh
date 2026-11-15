@@ -4,7 +4,7 @@
 #
 # "Reaches" rows read each crate's normal-edge dependency graph once (`cargo tree -e normal`)
 # and look for forbidden package names in it: a check for OUTPUT, never for exit status
-# (`cargo tree -i` exits 101 when a dependency is absent, the state we want; CONVENTIONS §14).
+# (`cargo tree -i` exits 101 when a dependency is absent, the state we want).
 # "Names" rows grep the source. A row about a crate that is not a member yet passes and says so;
 # it bites the moment that crate lands.
 set -uo pipefail

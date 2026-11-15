@@ -32,7 +32,7 @@ pub enum ObjectRef {
 }
 
 /// A request, by protocol and name, with fuzzed integer arguments (one variant per private
-/// request from P2: CONVENTIONS addendum 11).
+/// request from P2).
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum FuzzRequest {
     /// A request of a standard protocol, by interface and opcode.
