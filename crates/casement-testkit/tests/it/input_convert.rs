@@ -12,7 +12,7 @@ use casement_core::DeviceId;
 use casement_core::geometry::{LogicalPoint, LogicalRect, LogicalSize, SubPoint, SubPx};
 use casement_core::input::{
     AxisFrame, AxisSource, ButtonCode, DeviceClass, GestureEnd, GestureStep, InputKind, KeyCode,
-    Origin, PinchDelta, SwitchStep, TouchStep,
+    Origin, PinchDelta, SwipeDelta, SwitchStep, TouchStep,
 };
 use casement_core::settings::CasementSettings;
 use casement_core::time::Mono;
@@ -169,10 +169,16 @@ fn rows() -> Vec<(VirtualInputEvent, InputKind)> {
             InputEvent::GestureSwipeUpdate {
                 event: VirtualSwipeUpdate {
                     stamp: stamp(),
-                    delta: sub(120, 0),
+                    delta: SwipeDelta {
+                        delta: sub(180, 0),
+                        unaccelerated: sub(120, 0),
+                    },
                 },
             },
-            InputKind::Swipe(GestureStep::Update(sub(120, 0))),
+            InputKind::Swipe(GestureStep::Update(SwipeDelta {
+                delta: sub(180, 0),
+                unaccelerated: sub(120, 0),
+            })),
         ),
         (
             InputEvent::GestureSwipeEnd {

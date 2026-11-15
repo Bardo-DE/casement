@@ -1,11 +1,12 @@
 //! The virtual backend's event types: each carries its device, its instant on the session
 //! clock and its data in our units, and answers smithay's event traits from them.
 
+use super::convert::SwipeUnaccelerated;
 use super::virtual_input::{VirtualDevice, VirtualInput};
 use casement_core::geometry::{LogicalPoint, SubPoint, SubPx};
 use casement_core::input::{
-    AxisFrame, AxisSource as CoreSource, ButtonCode, GestureEnd, KeyCode, PinchDelta, SwitchStep,
-    TouchStep,
+    AxisFrame, AxisSource as CoreSource, ButtonCode, GestureEnd, KeyCode, PinchDelta, SwipeDelta,
+    SwitchStep, TouchStep,
 };
 use casement_core::time::Mono;
 use casement_protocols::vocab::PressEdge;
@@ -272,18 +273,27 @@ impl GestureHoldEndEvent<VirtualInput> for VirtualGestureEnd {}
 pub struct VirtualSwipeUpdate {
     /// Device and instant.
     pub stamp: EventStamp,
-    /// The movement.
-    pub delta: SubPoint,
+    /// The movement, with and without acceleration.
+    pub delta: SwipeDelta,
 }
 event_impl!(VirtualSwipeUpdate);
 
 impl GestureSwipeUpdateEvent<VirtualInput> for VirtualSwipeUpdate {
     fn delta_x(&self) -> f64 {
-        px(self.delta.x)
+        px(self.delta.delta.x)
     }
 
     fn delta_y(&self) -> f64 {
-        px(self.delta.y)
+        px(self.delta.delta.y)
+    }
+}
+
+impl SwipeUnaccelerated for VirtualSwipeUpdate {
+    fn unaccelerated(&self) -> (f64, f64) {
+        (
+            px(self.delta.unaccelerated.x),
+            px(self.delta.unaccelerated.y),
+        )
     }
 }
 

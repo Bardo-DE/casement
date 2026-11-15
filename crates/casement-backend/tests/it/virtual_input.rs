@@ -2,13 +2,13 @@
 //! do, in the order pushed, with the device's origin and our units converted (P0-B-headless).
 #![cfg(any(feature = "testing", feature = "debug-inject"))]
 
-use casement_backend::input::{VirtualInputEvent, VirtualKey};
+use casement_backend::input::{SwipeUnaccelerated, VirtualInputEvent, VirtualKey};
 use casement_backend::{DeviceName, DeviceSpec, VirtualInput};
 use casement_core::DeviceId;
 use casement_core::geometry::{LogicalPoint, SubPoint, SubPx};
 use casement_core::input::{
     AxisFrame, AxisSource as Source, ButtonCode, DeviceClass, GestureEnd, GestureStep, InputKind,
-    KeyCode, Origin, PinchDelta, SwitchStep, TouchStep,
+    KeyCode, Origin, PinchDelta, SwipeDelta, SwitchStep, TouchStep,
 };
 use casement_core::settings::XkbNames;
 use casement_core::time::Mono;
@@ -341,9 +341,15 @@ fn gestures_carry_fingers_deltas_scale_and_how_they_ended() {
     );
     input.push(
         id,
-        InputKind::Swipe(GestureStep::Update(SubPoint {
-            x: px(4),
-            y: px(-2),
+        InputKind::Swipe(GestureStep::Update(SwipeDelta {
+            delta: SubPoint {
+                x: px(4),
+                y: px(-2),
+            },
+            unaccelerated: SubPoint {
+                x: px(3),
+                y: px(-1),
+            },
         })),
         at(2),
     );
@@ -382,6 +388,7 @@ fn gestures_carry_fingers_deltas_scale_and_how_they_ended() {
         panic!("swipe update")
     };
     assert_eq!((event.delta_x(), event.delta_y()), (4.0, -2.0));
+    assert_eq!(event.unaccelerated(), (3.0, -1.0));
     let InputEvent::GestureSwipeEnd { event } = &events[2] else {
         panic!("swipe end")
     };

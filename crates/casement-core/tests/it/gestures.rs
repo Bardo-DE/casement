@@ -9,7 +9,7 @@ use casement_core::input::gesture_route::{Axis, Drive, Fate, Route, route};
 use casement_core::input::lift::{Intent, Lift, LiftEnd, LiftIn, LiftOut};
 use casement_core::input::{
     BUS_VIRTUAL, DesktopCommand, DeviceClass, GestureEnd, GestureStep, InputEvent, InputKind,
-    KernelIds, Maker, Origin,
+    KernelIds, Maker, Origin, SwipeDelta,
 };
 use casement_core::overview::Overview;
 use casement_core::settings::{CasementSettings, Enabled, GestureSettings, SwipeFingers};
@@ -289,12 +289,23 @@ fn swipe(model: Model, at: u64, step: GestureStep<SubPoint>) -> (Model, Vec<Effe
     swipe_from(Origin::Physical(DeviceClass::Touchpad), model, at, step)
 }
 
-/// `model` after a swipe step from `origin` at `at` ms, and its effects.
+/// `model` after a swipe step from `origin` at `at` ms, with no acceleration in it, and its
+/// effects.
 fn swipe_from(
     origin: Origin,
     model: Model,
     at: u64,
     step: GestureStep<SubPoint>,
+) -> (Model, Vec<Effect>) {
+    stepped(origin, model, at, step.map(SwipeDelta::from))
+}
+
+/// `model` after a swipe step from `origin` at `at` ms, and its effects.
+fn stepped(
+    origin: Origin,
+    model: Model,
+    at: u64,
+    step: GestureStep<SwipeDelta>,
 ) -> (Model, Vec<Effect>) {
     let event = InputEvent {
         origin,
@@ -363,6 +374,35 @@ fn a_far_swipe_left_follows_the_fingers_then_commits_to_the_next_space() {
         ms(T0 + 900),
     );
     assert_eq!(model.space_strip(ms(T0 + 900)), None, "at rest");
+}
+
+/// The row follows the fingers' unaccelerated movement: the touchpad's acceleration, which
+/// enlarged a device's uneven reports into a stutter, reaches only the clients.
+#[test]
+fn the_row_follows_the_unaccelerated_movement() {
+    let model = three_spaces(GestureSettings::defaults());
+    let px = |x: i32| SubPoint {
+        x: SubPx(x * 120),
+        y: SubPx(0),
+    };
+    let moved = GestureStep::Update(SwipeDelta {
+        delta: px(-90),
+        unaccelerated: px(-60),
+    });
+    let touchpad = Origin::Physical(DeviceClass::Touchpad);
+    let (model, _) = [
+        (T0, GestureStep::Begin { fingers: 4 }),
+        (T0 + 100, moved),
+        (T0 + 200, moved),
+        (T0 + 300, moved),
+        (T0 + 400, moved),
+    ]
+    .into_iter()
+    .fold((model, Vec::new()), |(model, _), (at, step)| {
+        stepped(touchpad, model, at, step)
+    });
+    let strip = model.space_strip(ms(T0 + 400)).expect("the row follows");
+    assert_eq!(strip.position, PageMilli(600), "240 px of 400, not 360");
 }
 
 /// NEW-PI-4, NEW-FA-4: palmrest's pad (made for the pad daemon) is not the person's hand (a consent

@@ -7,6 +7,7 @@ use casement_backend::{BackendKind, DeviceName, DeviceSpec};
 use casement_core::DeviceId;
 use casement_core::input::{
     AxisFrame, AxisSource, ButtonCode, DeviceClass, InputKind, KeyCode, Origin, PortalSessionId,
+    SwipeDelta,
 };
 use casement_ipc::{DeviceVerb, InjectLine, InjectOrigin};
 use casement_protocols::vocab::PressEdge;
@@ -200,7 +201,10 @@ fn kind_of(line: &InjectLine) -> Option<(DeviceClass, InputKind)> {
             (DeviceClass::Touchpad, InputKind::Axis(finger(*px, false)))
         }
         InjectLine::AxisStop => (DeviceClass::Touchpad, InputKind::Axis(finger(zero, true))),
-        InjectLine::Swipe(step) => (DeviceClass::Touchpad, InputKind::Swipe(*step)),
+        InjectLine::Swipe(step) => (
+            DeviceClass::Touchpad,
+            InputKind::Swipe(step.map(SwipeDelta::from)),
+        ),
         InjectLine::Pinch(step) => (DeviceClass::Touchpad, InputKind::Pinch(*step)),
         InjectLine::Hold(step) => (DeviceClass::Touchpad, InputKind::Hold(*step)),
         InjectLine::Touch(step) => (DeviceClass::Touch, InputKind::Touch(*step)),

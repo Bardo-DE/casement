@@ -89,7 +89,10 @@ pub(super) fn through(state: &mut State, event: &InputEvent) {
         InputKind::Axis(frame) => scroll(state, &seat, event, *frame),
         // A swipe the desktop took (the Spaces, Mission Control) is not the clients'.
         InputKind::Swipe(step) => match state.core.model.swipe_owner() {
-            SwipeOwner::Client => gesture(state, &seat, event, GestureDelivery::Swipe(*step)),
+            SwipeOwner::Client => {
+                let step = step.map(|d| d.delta);
+                gesture(state, &seat, event, GestureDelivery::Swipe(step));
+            }
             SwipeOwner::Desktop => {}
         },
         InputKind::Pinch(step) => gesture(state, &seat, event, GestureDelivery::Pinch(*step)),

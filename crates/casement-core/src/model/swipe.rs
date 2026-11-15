@@ -9,8 +9,10 @@
 //! progress is [`Model::overview_progress`], and its verdict opens or closes Mission Control
 //! through the same paths a key does.
 //!
-//! The clients get the swipes the desktop does not take; [`Model::swipe_owner`] says, right
-//! after a swipe step was stepped, whose that step was.
+//! The swipes the desktop takes follow the fingers' unaccelerated movement (`SwipeDelta`), as
+//! the Mac's row stays under the fingers. The clients get the swipes the desktop does not take,
+//! with the touchpad's acceleration; [`Model::swipe_owner`] says, right after a swipe step was
+//! stepped, whose that step was.
 
 use super::Model;
 use super::moved::Moved;
@@ -125,7 +127,11 @@ impl Model {
                 || event.origin.is_pad()
                 || matches!(event.origin, Origin::Feed(_)));
         let (next, fate) = match ours {
-            true => route(model.swipe.route, step, &model.settings.gestures),
+            true => route(
+                model.swipe.route,
+                step.map(|d| d.unaccelerated),
+                &model.settings.gestures,
+            ),
             false => abandoned(model.swipe.route),
         };
         model.swipe.route = next;

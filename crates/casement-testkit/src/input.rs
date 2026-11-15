@@ -8,8 +8,8 @@ use casement_core::DeviceId;
 use casement_core::geometry::LogicalPoint;
 use casement_core::geometry::SubPoint;
 use casement_core::input::{
-    AxisFrame, ButtonCode, DeviceClass, GestureStep, InputKind, KeyCode, PinchDelta, SwitchStep,
-    TouchStep,
+    AxisFrame, ButtonCode, DeviceClass, GestureStep, InputKind, KeyCode, PinchDelta, SwipeDelta,
+    SwitchStep, TouchStep,
 };
 use casement_protocols::vocab::PressEdge;
 
@@ -74,7 +74,7 @@ impl<'a> FixtureInput<'a> {
 
     /// A swipe step on `device`, then a pump.
     pub fn swipe(&mut self, device: DeviceId, step: GestureStep<SubPoint>) {
-        self.push(device, InputKind::Swipe(step));
+        self.push(device, InputKind::Swipe(step.map(SwipeDelta::from)));
     }
 
     /// A pinch step on `device`, then a pump.

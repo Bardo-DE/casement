@@ -20,7 +20,7 @@ mod virtual_input;
 mod libinput_real;
 
 pub use config::{device_settings, scaled_scroll, xkb_of};
-pub use convert::input_kind_of;
+pub use convert::{SwipeUnaccelerated, input_kind_of};
 pub use device_spec::{DeviceName, DeviceSpec};
 pub use devices::{AccelProfile, Applied, DeviceSetting, DeviceSettings, InputError};
 pub use feed::{FedDevice, FedInput, InputFeed, PollContext};

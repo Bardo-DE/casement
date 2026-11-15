@@ -6,7 +6,7 @@
 use casement_core::geometry::{LogicalPoint, LogicalRect, SubPoint, SubPx};
 use casement_core::input::{
     AxisFrame, AxisSource as CoreSource, ButtonCode, GestureEnd, GestureStep, InputKind, KeyCode,
-    PinchDelta, SwitchStep, TouchStep,
+    PinchDelta, SwipeDelta, SwitchStep, TouchStep,
 };
 use casement_protocols::vocab::PressEdge;
 use ds_core::vocab::Fraction;
@@ -14,7 +14,7 @@ use smithay::backend::input::{
     AbsolutePositionEvent, Axis, AxisSource, ButtonState, GestureBeginEvent, GestureEndEvent,
     GesturePinchUpdateEvent, GestureSwipeUpdateEvent, InputBackend, InputEvent, KeyState,
     KeyboardKeyEvent, PointerAxisEvent, PointerButtonEvent, PointerMotionEvent, Switch,
-    SwitchState, SwitchToggleEvent, TouchEvent,
+    SwitchState, SwitchToggleEvent, TouchEvent, UnusedEvent,
 };
 
 /// Sub-pixels per logical pixel.
@@ -40,7 +40,10 @@ const XKB_OFFSET: u32 = 8;
 pub fn input_kind_of<B: InputBackend>(
     event: &InputEvent<B>,
     extent: LogicalRect,
-) -> Option<InputKind> {
+) -> Option<InputKind>
+where
+    B::GestureSwipeUpdateEvent: SwipeUnaccelerated,
+{
     Some(match event {
         InputEvent::Keyboard { event } => InputKind::Key {
             code: KeyCode(event.key_code().raw().saturating_sub(XKB_OFFSET)),
@@ -64,9 +67,13 @@ pub fn input_kind_of<B: InputBackend>(
         },
         InputEvent::PointerAxis { event } => InputKind::Axis(axis_frame::<B, _>(event)),
         InputEvent::GestureSwipeBegin { event } => begin(event.fingers(), InputKind::Swipe),
-        InputEvent::GestureSwipeUpdate { event } => InputKind::Swipe(GestureStep::Update(
-            sub_point(event.delta_x(), event.delta_y()),
-        )),
+        InputEvent::GestureSwipeUpdate { event } => {
+            let (ux, uy) = event.unaccelerated();
+            InputKind::Swipe(GestureStep::Update(SwipeDelta {
+                delta: sub_point(event.delta_x(), event.delta_y()),
+                unaccelerated: sub_point(ux, uy),
+            }))
+        }
         InputEvent::GestureSwipeEnd { event } => {
             InputKind::Swipe(GestureStep::End(ended::<B, _>(event)))
         }
@@ -105,6 +112,29 @@ pub fn input_kind_of<B: InputBackend>(
         InputEvent::SwitchToggle { event } => InputKind::Switch(switch_step::<B, _>(event)?),
         _ => return None,
     })
+}
+
+/// A swipe update's movement before the touchpad's acceleration, in logical pixels: smithay's
+/// swipe event carries only the accelerated one, which the clients get, while the desktop's own
+/// swipes follow the fingers (`SwipeDelta`).
+pub trait SwipeUnaccelerated {
+    /// The unaccelerated movement, horizontal then vertical.
+    fn unaccelerated(&self) -> (f64, f64);
+}
+
+/// A backend that has no swipes (winit, X11).
+impl SwipeUnaccelerated for UnusedEvent {
+    fn unaccelerated(&self) -> (f64, f64) {
+        match *self {}
+    }
+}
+
+#[cfg(feature = "libinput")]
+impl SwipeUnaccelerated for smithay::reexports::input::event::gesture::GestureSwipeUpdateEvent {
+    fn unaccelerated(&self) -> (f64, f64) {
+        use smithay::reexports::input::event::gesture::GestureEventCoordinates;
+        (self.dx_unaccelerated(), self.dy_unaccelerated())
+    }
 }
 
 /// A rounded value clamped to `[low, high]`, as a whole number still held in a float (the

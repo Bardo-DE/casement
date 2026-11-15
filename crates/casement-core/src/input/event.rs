@@ -50,7 +50,7 @@ pub enum InputKind {
     /// One scroll frame.
     Axis(AxisFrame),
     /// A swipe gesture's step.
-    Swipe(GestureStep<SubPoint>),
+    Swipe(GestureStep<SwipeDelta>),
     /// A pinch gesture's step.
     Pinch(GestureStep<PinchDelta>),
     /// A hold gesture's step.
@@ -99,6 +99,39 @@ pub enum GestureStep<D> {
     Update(D),
     /// It ended.
     End(GestureEnd),
+}
+
+impl<D> GestureStep<D> {
+    /// The same step with its update's movement mapped by `f`.
+    pub fn map<E>(self, f: impl FnOnce(D) -> E) -> GestureStep<E> {
+        match self {
+            Self::Begin { fingers } => GestureStep::Begin { fingers },
+            Self::Update(d) => GestureStep::Update(f(d)),
+            Self::End(end) => GestureStep::End(end),
+        }
+    }
+}
+
+/// One swipe update: the centre's movement twice. The clients get it as the pointer would move
+/// (with the touchpad's acceleration, as the gesture protocol expects); the desktop's own swipes
+/// (the Spaces, Mission Control) follow the fingers themselves, so the row stays under them as on
+/// the Mac and acceleration cannot enlarge a device's uneven reports into a stutter.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct SwipeDelta {
+    /// The movement with the touchpad's acceleration.
+    pub delta: SubPoint,
+    /// The movement before acceleration.
+    pub unaccelerated: SubPoint,
+}
+
+impl From<SubPoint> for SwipeDelta {
+    /// A movement with no acceleration in it (a test, an injected swipe): both are `delta`.
+    fn from(delta: SubPoint) -> Self {
+        Self {
+            delta,
+            unaccelerated: delta,
+        }
+    }
 }
 
 /// How a gesture ended.
